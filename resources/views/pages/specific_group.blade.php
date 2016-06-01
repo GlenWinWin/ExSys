@@ -25,6 +25,7 @@
 									@foreach($exams as $exam_list)
 										<a onclick="editExam({{$exam_list->exam_id}})" class="btn btn-primary">{{$exam_list->exam_name}}</a>
 										<a class="btn btn-primary"><i class="fa fa-print" style="margin-right:5px;"></i>Print</a>
+										<br>
 									@endforeach
 								</h3>
       </div>

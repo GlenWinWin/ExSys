@@ -22,6 +22,7 @@
         <h3>
           @foreach($exams as $exam_list)
             <a onclick="takeExam({{$exam_list->exam_id}},{{$groupId}})" class="btn btn-primary">{{$exam_list->exam_name}}</a>
+						<br>
           @endforeach
         </h3>
       </div>

@@ -61,8 +61,9 @@ class PagesController extends Controller
 		$groups = DB::select('select group_id,group_name FROM group_members NATURAL JOIN groups WHERE user_id = ?',[Auth::user()->id]);
 		$specific_group_count = Groups::where('group_id', '=', $arr[1])->count();
 		$specific_group = Groups::where('group_id', '=', $arr[1])->first();
-		$exams = DB::select('select exam_id, group_id, exam_name,user_id from exams natural join scores where user_id = ? and group_id = ?',[Auth::user()->id,$arr[1]]);
-		$exams2 = Exams::where('group_id', '=', $arr[1])->get();
+		$exams = DB::select('select exam_id, group_id, exam_name from exams natural join scores where group_id = ? and user_id = ?',[$arr[1],Auth::user()->id]);
+
+		$exams2 = Exam::where('group_id', '=', $arr[1])->get();
 		if($specific_group_count == 1  && count($groups) > 0 && count($exams) == 0){
 				return view('pages.group_student',['groups' => $groups,'groupName'=>$specific_group->group_name,
 				'groupId'=>$specific_group->group_id,'exams'=>$exams2]);

@@ -35,4 +35,6 @@ function createChart(){
     tooltipFillColor: "rgba(51, 51, 51, 0.55)",
     data: data
   });
+  window.scrollBy(0, 50);
+
 }
