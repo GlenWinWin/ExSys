@@ -1,0 +1,21 @@
+.numques{
+  float: left;
+  margin-right: 50px;
+
+}
+.numques a{
+  border-radius:1px;
+      background: #E6E9ED;
+        padding: 15px;
+      width: 100px;
+      height: 10px;
+      margin-bottom:3px;
+      text-align: center;
+            text-decoration: none;
+  display: block;
+
+}
+
+.numques a:hover{
+  box-shadow: 0 5px 6px -3px rgba(107,117,140,.5);
+}
