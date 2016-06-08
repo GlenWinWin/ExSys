@@ -7,7 +7,7 @@ function createChart(){
   var true_or_false = +document.getElementById("typeOfExam1").value;
   var multiple_choice = +document.getElementById("typeOfExam2").value;
   var identification = +document.getElementById("typeOfExam3").value;
-    if((true_or_false + multiple_choice + identification) === numberOfItems){
+    if((true_or_false + multiple_choice + identification) === numberOfItems && numberOfItems != 0){
       var data = {
         labels: [
           "True or False",
@@ -35,6 +35,4 @@ function createChart(){
     tooltipFillColor: "rgba(51, 51, 51, 0.55)",
     data: data
   });
-  window.scrollBy(0, 50);
-
 }

@@ -10,7 +10,9 @@ class Scores extends Model
     'exam_id',
     'user_id',
     'score',
-    'total'
+    'total',
+    'ifTaken',
+    'percentage'
   ];
 
   public $timestamps = false;

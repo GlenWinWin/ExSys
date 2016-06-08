@@ -18,13 +18,24 @@ class UserTableSeeder extends Seeder
         //   'typeOfUser' => '2',
         //   'profile_path' => 'assets/images/sir_chavez.jpg'
         // 	]);
-        DB::table('users')->insert([
-        	'email' => 'rednax@gmail.com',
-          'name' => 'Xander Faustino',
-        	'password' => Hash::make('rednax'),
-          'typeOfUser' => '2',
-          'profile_path' => 'assets/images/xander.jpg'
+        DB::table('notifications')->insert([
+        	'id' => 4,
+          'fromUser' => 1,
+        	'has_read' => '0',
+          'notif_message' => 'This message is a trial'
         	]);
+        DB::table('notifications')->insert([
+          'id' => 4,
+          'fromUser' => 2,
+          'has_read' => '0',
+          'notif_message' => 'Also this message'
+          ]);
+        DB::table('notifications')->insert([
+          'id' => 4,
+          'fromUser' => 3,
+          'has_read' => '0',
+          'notif_message' => 'Trial Message'
+          ]);
         // DB::table('users')->insert([
         //   	'email' => 'glenwinbernabe@gmail.com',
         //     'name' => 'Glenwin G. Bernabe',

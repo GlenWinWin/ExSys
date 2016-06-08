@@ -11,6 +11,8 @@ class Exam extends Model
     'exam_time_limit',
     'prof_id',
     'group_id',
+    'ifRandom',
+    'date_added'
   ];
 
   public $timestamps = false;

@@ -48,7 +48,7 @@
 								{!! Form::open(array('action' => 'GroupController@viewGroup' , 'method' => 'post' , 'id' => 'specificGroup'))!!}
 								 <input type="hidden" name="groupId" id="specific_group_id">
 								{!! Form::close()!!}
-
+								
 
 <!-- Small modal -->
 
@@ -148,7 +148,7 @@
                     <tr>
                       <th scope="row">{{$group_list->group_passCode}}</th>
                       <td>{{$group_list->group_name}}</td>
-                      <td><a onclick="setHiddenSpecificId({{$group_list->group_id}})">View Members</a></td>
+                      <td><a onclick="setHiddenSpecificId({{$group_list->group_id}})" id="viewMembers">View Members</a></td>
                       <td><button type="button" class="btn btn-info" data-toggle="modal" data-target=".modify_group"><i class="fa fa-edit"></i> Modify</button></td>
                       <td><button  onclick="setId({{$group_list->group_id}},'{{$group_list->group_name}}')" type="button" class="btn btn-warning" data-toggle="modal" data-target=".delete_group"><i class="fa fa-trash"></i> Delete</button></td>
                     </tr>

@@ -8,17 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@yield('title')</title>
-
-    <!-- Bootstrap core CSS -->
-
     <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/fonts/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/animate.min.css')}}" rel="stylesheet">
-
     <link href="{{ URL::asset('assets/css/custom.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/green.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/icheck/flat/green.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/quiz.css')}}" rel="stylesheet">
     <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+          setInterval(function () {
+            $('#menu1').load("{{asset('notification')}}");
+            $('#notification_count').load("{{asset('count_notif')}}")
+          }, 1000);
+          $("#whenHover").click(function(){
+            $('#updateNotif').load("{{asset('update_notification')}}");
+          });
+        });
+    </script>
   </head>
 
 
@@ -62,7 +69,16 @@
                   <li><a href="home"><i class="fa fa-home"></i> Home </a>
                   </li>
 
-                  <li><a><i class="fa fa-area-chart"></i> Progress </span></a>
+                  <li>
+                    <a onclick="showGroups()"><i class="fa fa-area-chart"></i> Progress </a>
+                      <ul class="nav child_menu" style="display: none" >
+                        {!! Form::open(array('action' => 'ProgressController@viewProgress' , 'method' => 'get' , 'id' => 'showProgress'))!!}
+                         <input type="hidden" name="groupId" id="specific_group_id">
+                        {!! Form::close()!!}
+                        @foreach($groups as $group)
+                           <li><a onclick="showProgress({{$group->group_id}})">{{$group->group_name}}</a></li>
+                        @endforeach
+                      </ul>
                   </li>
 
                    <li><a onclick="showGroups()"><i class="fa fa-group"></i> Groups </a>
@@ -114,81 +130,21 @@
                     <li>
                       <a href="javascript:;">Help</a>
                     </li>
-                    <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <li><a href="logout" onclick=" return confirm('Are you sure you want to logout?')"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </li>
                   </ul>
                 </li>
                 <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-red">9</span>
+                  <a class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false" id="whenHover">
+                    <i class="fa fa-envelope-o" id="updateNotif"></i>
+                    <span class="badge bg-red" id="notification_count"></span>
                   </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu" style="height: 220px;overflow-y: auto;">
-                    <li>
-                      <a href="#">
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg') }}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg')}}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg')}}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg')}}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a href="#">
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
+                  @if($notifs > 3)
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu" style="height: 170px;overflow-y: auto;">
+                  @else
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                  @endif
+                    </ul>
                 </li>
 
               </ul>

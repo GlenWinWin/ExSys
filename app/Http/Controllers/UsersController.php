@@ -35,9 +35,6 @@ class UsersController extends Controller
             'password' => $requests->password,
           ]);
           if($attempt){
-            Session::flash('flash_message','Login Successfully');
-            Session::flash('type_message','success');
-
             return redirect('home');
           }
           else{
@@ -55,14 +52,6 @@ class UsersController extends Controller
     }
     public function logout(){
       Auth::logout();
-
-      Session::flash('flash_message','You have been logout');
-      Session::flash('type_message','info');
-
       return redirect('login');
-
-    }
-    public function makeAdmin(){
-    	return 'Admin';
     }
 }

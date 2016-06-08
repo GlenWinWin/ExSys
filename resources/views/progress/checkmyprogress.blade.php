@@ -1,14 +1,14 @@
 @extends('layouts.layout_student')
 
 @section('title')
-	Hi! {{Auth::user()->name}}
+	My Progress
 @stop
 
 @section('page-content')
 
 <!-- page content -->
 <div class="right_col" role="main">
-	@if(Session::has('flash_message'))
+	@if( (Session::has('flash_message')) && (Session::get('flash_message') != 'has-error') )
     <div class="alert alert-{{ Session::get('type_message') }} alert-dismissible fade in" id="viewAlert" style="margin-top:5%"  role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
         </button>
@@ -18,14 +18,28 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>Home</h3>
+				<?php $i = 1;?>
+				<input type="hidden" id="exams" value="{{count($scores)}}">
+				@foreach($scores as $sc)
+					<input type="hidden" id="examName{{$i}}" value="{{$sc->exam_name}}">
+					<input type="hidden" id="percentage{{$i}}" value="{{$sc->percentage}}">
+					<?php $i++;?>
+				@endforeach
       </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-
-    	</div>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Your Progress</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div id="graph_bar" style="width:100%; height:280px;"></div>
+                </div>
+              </div>
+      </div>
   	</div>
 	</div>
 </div>
@@ -35,6 +49,9 @@
 
 <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
 <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
+<script src="{{ URL::asset('assets/js/moris/mymorris.js')}}"></script>
+<script src="{{ URL::asset('assets/js/moris/myraphael.js')}}"></script>
+<script src="{{ URL::asset('assets/js/moris/scores.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){

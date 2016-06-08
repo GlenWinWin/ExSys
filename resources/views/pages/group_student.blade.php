@@ -21,14 +21,22 @@
         <h3>{{$groupName}}</h3>
         <h3>
           @foreach($exams as $exam_list)
-            <a onclick="takeExam({{$exam_list->exam_id}},{{$groupId}})" class="btn btn-primary">{{$exam_list->exam_name}}</a>
-						<br>
+						@if($exam_list->ifTaken == '0')
+	            <a onclick="takeExam({{$exam_list->exam_id}},{{$groupId}})" class="btn btn-primary">{{$exam_list->exam_name}}</a>
+							<br>
+						@else
+							<a onclick="showScore({{$exam_list->exam_id}})" class="btn btn-success">View Results for {{$exam_list->exam_name}}</a>
+							<br>
+						@endif
           @endforeach
         </h3>
       </div>
 				{!! Form::open(array('action' => 'ExamsController@takeExam' , 'method' => 'post' , 'id' => 'specificExamIdForm'))!!}
 				 <input type="hidden" name="examId" id="specific_id">
          <input type="hidden" name="groupId" id="specific_group_id">
+				{!! Form::close()!!}
+				{!! Form::open(array('action' => 'ExamsController@showScore' , 'method' => 'get' , 'id' => 'showExamScoreForm'))!!}
+				 <input type="hidden" name="examId" id="specific_id">
 				{!! Form::close()!!}
     </div>
     <div class="clearfix"></div>

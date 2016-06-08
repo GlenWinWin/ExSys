@@ -17,9 +17,20 @@
     <link href="{{ URL::asset('assets/css/timer.css')}}" rel="stylesheet">
 
     <link href="{{ URL::asset('assets/css/custom.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/green.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/icheck/flat/green.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/quiz.css')}}" rel="stylesheet">
     <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          setInterval(function () {
+            $('#menu2').load("{{asset('notification')}}");
+            $('#notificationCount').load("{{asset('count_notif')}}")
+          }, 1000);
+          $("#whenClick").click(function(){
+            $('#updateNotif').load("{{asset('update_notification')}}");
+          });
+        });
+    </script>
   </head>
 
 
@@ -75,8 +86,31 @@
                       @endif
                     </ul>
                  </li>
-
-                  <li><a><i class="fa fa-pencil-square-o"></i> Exams </a>
+                 <li><a onclick="showGroups()"><i class="fa fa-bar-chart-o"></i>Check Progress</a>
+                   <ul class="nav child_menu" style="display: none" >
+                     {!! Form::open(array('action' => 'ProgressController@checkExamsProgress' , 'method' => 'post' , 'id' => 'checkExamsProgress'))!!}
+                      <input type="hidden" name="groupId" id="specific_group_id">
+                     {!! Form::close()!!}
+                     @if(count($groups) > 0)
+                       @foreach($groups as $group)
+                          <li><a onclick="checkExamsProgress({{$group->group_id}})">{{$group->group_name}}</a></li>
+                       @endforeach
+                     @endif
+                   </ul>
+                 </li>
+                  <li role="presentation" class="dropdown" id="thisIs">
+                    <a class="dropdown-toggle info-number" id="whenClick" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-pencil-square-o" id="updateNotif"></i>
+                      <span class="badge bg-red" id="notificationCount">
+                      </span>
+                      Exams
+                    </a>
+                    @if($notifs > 3)
+                      <ul id="menu2" class="dropdown-menu list-unstyled msg_list" role="menu" style="height: 170px;overflow-y: auto;">
+                    @else
+                      <ul id="menu2" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    @endif
+                      </ul>
                   </li>
 
                   <li><a data-toggle="modal" data-target=".join_group"><i class="fa fa-plus"></i> Join Group </a>
@@ -117,11 +151,11 @@
                     <li>
                       <a href="javascript:;">Help</a>
                     </li>
-                    <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <li><a href="logout" onclick=" return confirm('Are you sure you want to logout?')"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </li>
                   </ul>
                 </li>
-                <li role="presentation" class="dropdown">
+                <!-- <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-red">9</span>
@@ -192,7 +226,7 @@
                       </div>
                     </li>
                   </ul>
-                </li>
+                </li> -->
 
               </ul>
             </nav>

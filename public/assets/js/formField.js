@@ -12,7 +12,6 @@ function stoppedTyping(){
         if((numberOfItems > 0) && examName.length > 0) {
           if(((true_or_false + multiple_choice + identification )  === numberOfItems)){
             document.getElementById('btnSubmit').disabled = false;
-            window.scrollBy(0,90);
           }
           else{
             document.getElementById('btnSubmit').disabled = true;

@@ -17,6 +17,7 @@ class CreateScoresTable extends Migration
           $table->integer('user_id');
           $table->integer('score');
           $table->integer('total');
+          $table->integer('ifTaken');
       });
     }
 

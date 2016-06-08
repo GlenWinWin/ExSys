@@ -29,6 +29,15 @@
 							<input name="timeLimit" type="number" min="1" max="1440" id="time_limit" required="required" value="1" class="form-control col-md-2 col-xs-12">
 							Minutes
 					</div>
+					<div class="col-md-2">
+						<ul class="to_do">
+							<li>
+								<p>
+									<input type="checkbox" class="flat" name="check_random" value="1"> Random Questions
+								</p>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<input type="hidden" name="examName" value="{{ $examName }}">
 				<input type="hidden" name="true_false" value="{{ $true_false }}">
@@ -36,7 +45,6 @@
 				<input type="hidden" name="identification" value="{{ $identification }}">
 				<input type="hidden" name="groupId" value="{{ $groupId }}">
 
-					<button type="button" class="btn btn-primary" style="float:right;"><i class="fa fa-search" style="margin-right:5px;"></i>Preview</button>
 <button type="button" class="btn btn-primary" data-toggle="modal"
 data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" style="float:right;">Done</button>                      <div class="clearfix"></div>
 					</div>
@@ -254,6 +262,7 @@ data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ?
 
 @section('js_script')
 <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
+<script src="{{ URL::asset('assets/js/icheck/icheck.min.js')}}"></script>
 <script src="{{ URL::asset('assets/js/each.js')}}"></script>
 <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
 <script src="{{ URL::asset('assets/js/tags/jquery.tagsinput.min.js')}}"></script>

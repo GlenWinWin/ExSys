@@ -1,3 +1,29 @@
+#whenHover{
+  cursor: pointer;
+}
+#viewResult{
+  width: 50%;
+}
+#viewResultExamTable{
+  width: 200%;
+  margin-left: 1%;
+  max-width: 200%;
+}
+#wider1{
+  width: 226.5%;
+}
+#wider2{
+  width: 150%;
+}
+#viewMembers{
+  cursor: pointer;
+}
+#whenClick{
+  background-color: #2A3F54;
+}
+#notificationCount{
+  margin-right: 122px;
+}
 #submit{
   margin-top: 2.5%;
 }
@@ -512,7 +538,6 @@ a:hover, a:focus {
 }
 .nav.side-menu>li>a:hover, .nav>li>a:focus {
   text-decoration: none;
-  background: transparent;
 }
 .nav.child_menu li:hover,
 .nav.child_menu li.active {
@@ -1332,11 +1357,11 @@ ul.msg_list li a {
   padding: 3px 5px !important;
 }
 ul.msg_list li a .image img {
-  border-radius: 2px 2px 2px 2px;
-  -webkit-border-radius: 2px 2px 2px 2px;
-  float: left;
-  margin-right: 10px;
-  width: 11%;
+  border-radius: 2px 2px 2px 2px !important;
+  -webkit-border-radius: 2px 2px 2px 2px !important;
+  float: left !important;
+  margin-right: 10px !important;
+  width: 11% !important;
 }
 ul.msg_list li a .time {
   font-size: 11px;
@@ -1347,7 +1372,7 @@ ul.msg_list li a .time {
 }
 ul.msg_list li a .message {
   display: block !important;
-  font-size: 11px;
+  font-size: 10px;
 }
 .dropdown-menu.msg_list span {
   white-space: normal;
@@ -1399,7 +1424,6 @@ ul.to_do {
   padding: 0;
 }
 ul.to_do li {
-  background: #f3f3f3;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -2897,8 +2921,8 @@ ul.bar_tabs {
   margin: 21px 0 14px;
   padding-left: 14px;
   position: relative;
-  z-index: 1;
   width: 100%;
+  z-index: 1;
   border-bottom: 1px solid #E6E9ED;
 }
 ul.bar_tabs > li {
@@ -2909,6 +2933,7 @@ ul.bar_tabs > li {
   background: #fff;
   border-bottom: none;
   border-radius: 4px 4px 0 0;
+  width: 46%;
 }
 ul.bar_tabs > li.active {
   border-right: 6px solid #D3D6DA;
