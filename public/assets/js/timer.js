@@ -35,5 +35,8 @@ function setClock(min){
   var deadline = new Date(Date.parse(new Date()) + 60 * min * 1000);
   initializeClock('clockdiv', deadline);
   $(".showQuestion").show();
-  $("input[id=toKnowIfReady]").val("1");
+}
+function setHiddenSpecificId(id){
+  $("input[id=specific_group_id]").val(id);
+  $('#specificGroup').submit();
 }

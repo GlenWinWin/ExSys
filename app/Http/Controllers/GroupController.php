@@ -64,7 +64,7 @@ class GroupController extends Controller
     if(count($selectGroup) == 0){
       Session::flash('flash_message','Mismatch Passcode!!');
 			Session::flash('type_message','success');
-      
+
       return redirect('home');
     }
     else{
@@ -100,5 +100,16 @@ class GroupController extends Controller
         return redirect()->action('PagesController@group_specific', [$selectGroup->group_id]);
       }
     }
+  }
+  public function updateSpecificGroup(Request $requests){
+    $groupId = $requests->groupId;
+    $groupName = $requests->group_name;
+
+    $updateGroup = Groups::where('group_id','=',$groupId)->update(['group_name' => $groupName]);
+
+    Session::flash('flash_message',$groupName . ' has been updated.');
+    Session::flash('type_message','success');
+
+    return redirect('groups');
   }
 }

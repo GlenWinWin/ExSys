@@ -23,11 +23,11 @@
     <div class="clearfix"></div>
     <div class="container" style="{{count($examResults) > 7 ? 'height: 280px;overflow-y: auto;' : ''}}float:left;width:49%">
 				<div class="row" id="viewResult">
-		        <table class="table table-hover table-border" id="viewResultExamTable">
-		          <tbody>
-								<!-- failed #FF4949 -->
-								<!-- sabit #FFEF49-->
-		            <tr>
+														 	<?php $passed=0;
+															$failed=0;?>
+		        <table class="table table-hover table-bordered" id="viewResultExamTable">
+							<thead>
+								<tr>
 										<th>
 		                Student Name
 		              	</th>
@@ -38,21 +38,57 @@
 		                Total
 		              </th>
 		            </tr>
+							</thead>
+							<tbody>
+								<!-- failed #FF4949 -->
+								<!-- sabit #FFEF49-->
 		            @foreach($examResults as $result)
-								<tr>
-									<td>
-										{{$result->Name}}
-		              </td>
-										<td>
-											{{$result->Score}}
-			              </td>
-									<td>
-										{{$result->Total}}
-									</td>
-								</tr>
+									@if($result->taken == '0')
+										<tr>
+											<td>
+												{{$result->Name}}
+				              </td>
+												<td>
+													{{$result->Score}}
+					              </td>
+											<td>
+												{{$result->Total}}
+											</td>
+										</tr>
+									 @else
+									 	@if($result->Percentage >= 75)
+											<tr style="background-color:#67DE48;color:black">
+												<td>
+													<b>{{$result->Name}}</b>
+												</td>
+													<td>
+														<b>{{$result->Score}}</b>
+													</td>
+												<td>
+													{{$result->Total}}
+												</td>
+											</tr>
+											<?php $passed++;?>
+											@else
+												<tr style="background-color:#D02727;color:black">
+													<td>
+  													<b>{{$result->Name}}</b>
+  												</td>
+  													<td>
+  														<b>{{$result->Score}}</b>
+  													</td>
+												 <td>
+													 {{$result->Total}}
+												 </td>
+											 </tr>
+											 <?php $failed++;?>
+										@endif
+									@endif
 								@endforeach
 		          </tbody>
 		        </table>
+						<input type="hidden" id="passedStudents" value="{{$passed}}">
+						<input type="hidden" id="failedStudents" value="{{$failed}}">
 		  	</div>
     </div>
 		<div class="x_panel" style="width:50%;float:rigth;margin-left:1%;background-color:#F7F7F7;border:none">
@@ -65,7 +101,6 @@
 
 @section('js_script')
 <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/specific_group.js')}}"></script>
 <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
 <script src="{{ URL::asset('assets/js/chartjs/chart.min.js')}}"></script>
 <script src="{{ URL::asset('assets/js/chartjs/viewPassorFail.js')}}"></script>

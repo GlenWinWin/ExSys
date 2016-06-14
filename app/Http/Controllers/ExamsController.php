@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Http\Requests;
 use App\Question;
 use App\Scores;
@@ -13,8 +14,6 @@ use Auth;
 use DB;
 use App\Groups;
 use App\Members;
-
-
 
 class ExamsController extends Controller
 {
@@ -136,19 +135,28 @@ class ExamsController extends Controller
       $arr = explode('?',$requests->fullUrl());
       $groups = DB::select('select group_id,group_name FROM group_members NATURAL JOIN groups WHERE user_id = ?',[Auth::user()->id]);
       $examId = $arr[1];
+      $exams = Exam::where('exam_id','=',$arr[1])->get();
+      $time_limit = 0;
+      $groupId = 0;
+      $random = '';
+      foreach($exams as $exaaa){
+        $time_limit = $exaaa->exam_time_limit;
+        $groupId = $exaaa->group_id;
+        $random = $exaaa->ifTaken;
+      }
+      $questions = '';
+      if($random == '0'){
+        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ?',[$examId]);
+      }
+      else{
+        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ? ORDER BY RAND()',[$examId]);
+      }
       $ifAGroupMember = DB::select('select user_id from exams natural join group_members where exam_id = ? and user_id = ?',[$examId,Auth::user()->id]);
-      $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ? ORDER BY RAND()',[$examId]);
       $true_false = Question::where('exam_id','=',$examId)->where('type_of_question','=','true_or_false')->get();
       $multiple_choice = Question::where('exam_id','=',$examId)->where('type_of_question','=','multiple_choice')->get();
       $identification = Question::where('exam_id','=',$examId)->where('type_of_question','=','identification')->get();
-      $scores = Scores::where('user_id','=',Auth::user()->id)->where('exam_id','=',$arr[1])->where('score','=',0)->get();
-      $time_limit = 0;
-      $groupId = 0;
+      $scores = Scores::where('user_id','=',Auth::user()->id)->where('exam_id','=',$examId)->where('score','=',0)->get();
 
-      foreach($questions  as $quest){
-        $time_limit = $quest->exam_time_limit;
-        $groupId = $quest->group_id;
-      }
       if(count($ifAGroupMember) > 0 && count($scores) > 0){
         return view('exams/takeExam',['groups'=>$groups,'questions'=>$questions,'time_limit'=>$time_limit,'examId'=>$examId,
         'groupId'=>$groupId,'true_false'=>count($true_false),'multiple_choice'=>count($multiple_choice),'identification'=>count($identification),'notifs'=>count($notifications)]);
@@ -159,7 +167,6 @@ class ExamsController extends Controller
 
         return redirect('home');
       }
-
     }
     public function submitExam(Request $requests){
       $total = $requests->totalQuestions;
@@ -230,21 +237,93 @@ class ExamsController extends Controller
     }
     public function updateYourExam(Request $requests){
       $exam_id = $requests->exam_id;
-      //$specific_exam = ""
       $notifications = Notifications::where('id','=',[Auth::user()->id])->orderBy('notif_id','desc')->get();
-      $groups = Groups::where('prof_id','=',Auth::user()->id);
-      return view('exams.editExam')->with('groups',$groups)->with('notifs',count($notifications));
+      $groups = Groups::where('prof_id','=',Auth::user()->id)->get();
+      $exam = Exam::where('exam_id','=',$exam_id)->where('prof_id','=',Auth::user()->id)->get();
+      $questions = DB::select('select ifRandom,exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ?',[$requests->exam_id]);
+      $true_false = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','true_or_false')->get();
+      $multiple_choice = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','multiple_choice')->get();
+      $identification = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','identification')->get();
+      $time_limit = 0;
+      $groupId = 0;
+      $examName = '';
+      $ifRandom = '';
+
+      foreach($questions  as $quest){
+        $time_limit = $quest->exam_time_limit;
+        $groupId = $quest->group_id;
+        $examName = $quest->exam_name;
+        $ifRandom = $quest->ifRandom;
+      }
+      if(count($exam) > 0){
+        return view('exams.update_exam',['random' => $ifRandom,'numberOfItems'=>(count($true_false)+count($multiple_choice)+count($identification)),'examName'=>$examName,'groups'=>$groups,'questions'=>$questions,'time_limit'=>$time_limit,'examId'=>$requests->exam_id,
+        'groupId'=>$groupId,'true_false'=>count($true_false),'multiple_choice'=>count($multiple_choice),'identification'=>count($identification),'notifs'=>count($notifications)]);
+      }
+      else{
+        Session::flash('flash_message','That is not your exam.');
+        Session::flash('type_message','danger');
+
+        return redirect('home');
+      }
     }
     public function viewtheResult(Request $requests){
       $notifications = Notifications::where('id','=',[Auth::user()->id])->orderBy('notif_id','desc')->get();
-      $groups = Groups::where('prof_id','=',Auth::user()->id);
       $exams = Exam::where('exam_id','=',$requests->view_id)->where('prof_id','=',Auth::user()->id)->get();
+      $list_of_groups = Groups::where('prof_id','=',Auth::user()->id)->get();
+      $examResults = DB::select('select u.name as "Name", s.score as "Score", s.total as "Total", s.ifTaken as "taken",s.percentage as "Percentage" from scores s inner join users u on s.user_id = u.id where s.exam_id = ? group by u.name order by s.score desc',[$requests->view_id]);
       if(count($exams) > 0){
-        $examResults = DB::select('select u.name as "Name", s.score as "Score", s.total as "Total", s.ifTaken as "taken" from scores s inner join users u on s.user_id = u.id where s.exam_id = ? group by u.name order by s.score desc',[$requests->view_id]);
-        return view('exams.viewExamResult',['groups'=>$groups,'notifs'=>count($notifications),'examResults'=>$examResults]);
+        return view('exams.viewExamResult',[ 'groups' => $list_of_groups, 'notifs' => count($notifications), 'examResults' => $examResults]);
       }
       else{
-        echo 'That is not your exam';
+        Session::flash('flash_message','That is not your exam!');
+        Session::flash('type_message','danger');
+
+        return redirect('home');
       }
+    }
+    public function preview(Request $requests){
+      $notifications = Notifications::where('id','=',[Auth::user()->id])->orderBy('notif_id','desc')->get();
+      $groups = Groups::where('prof_id','=',Auth::user()->id);
+      $exams = Exam::where('exam_id','=',$requests->exam_id)->where('prof_id','=',Auth::user()->id)->get();
+      $time_limit = 0;
+      $groupId = 0;
+      $random = '';
+      foreach($exams  as $ex){
+        $time_limit = $ex->exam_time_limit;
+        $groupId = $ex->group_id;
+        $random = $ex->ifRandom;
+      }
+      $questions = '';
+      if($random == '0'){
+        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ?',[$requests->exam_id]);
+      }
+      else{
+        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ? ORDER BY RAND()',[$requests->exam_id]);
+      }
+      $true_false = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','true_or_false')->get();
+      $multiple_choice = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','multiple_choice')->get();
+      $identification = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','identification')->get();
+
+      if(count($exams) > 0){
+        return view('exams.previewExam',['groups'=>$groups,'questions'=>$questions,'time_limit'=>$time_limit,'examId'=>$requests->exam_id,
+        'groupId'=>$groupId,'true_false'=>count($true_false),'multiple_choice'=>count($multiple_choice),'identification'=>count($identification),'notifs'=>count($notifications)]);
+      }
+      else{
+        Session::flash('flash_message','Oopps! that is not your exam.');
+        Session::flash('type_message','danger');
+
+        return redirect('home');
+      }
+    }
+    public function ifTaken(Request $requests){
+      $update_ifTaken = Scores::where('user_id','=',Auth::user()->id)->update(['ifTaken'=>'1']);
+    }
+    public function updateScore(){
+      for($i = 1; $i<=45;$i++){
+          $randomScore = rand(1,50);
+          $ifRandScoreIsLessthan10 = $randomScore <= 10 ? $randomScore+10 : $randomScore;
+          $scores = Scores::where('user_id','=',$i)->where('exam_id','=',1)->update(['score'=>$ifRandScoreIsLessthan10,'ifTaken'=>1,'percentage'=>round(((($ifRandScoreIsLessthan10/50)*50)+50))]);
+      }
+      echo 'Nice one';
     }
 }

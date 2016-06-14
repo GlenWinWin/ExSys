@@ -15,7 +15,6 @@
     <link href="{{ URL::asset('assets/fonts/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/timer.css')}}" rel="stylesheet">
-
     <link href="{{ URL::asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/icheck/flat/green.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/quiz.css')}}" rel="stylesheet">
@@ -73,8 +72,7 @@
 
                   <li><a href="home"><i class="fa fa-home"></i> Home </a>
                   </li>
-
-                  <li><a onclick="showGroups()"><i class="fa fa-group"></i> Groups </a>
+                  <li><a><i class="fa fa-group"></i> Groups </a>
                     <ul class="nav child_menu" style="display: none" >
                       {!! Form::open(array('action' => 'GroupController@viewGroupStudent' , 'method' => 'post' , 'id' => 'specificGroup'))!!}
                        <input type="hidden" name="groupId" id="specific_group_id">
@@ -86,7 +84,7 @@
                       @endif
                     </ul>
                  </li>
-                 <li><a onclick="showGroups()"><i class="fa fa-bar-chart-o"></i>Check Progress</a>
+                 <li><a><i class="fa fa-bar-chart-o"></i>Check Progress</a>
                    <ul class="nav child_menu" style="display: none" >
                      {!! Form::open(array('action' => 'ProgressController@checkExamsProgress' , 'method' => 'post' , 'id' => 'checkExamsProgress'))!!}
                       <input type="hidden" name="groupId" id="specific_group_id">
@@ -107,7 +105,7 @@
                     </a>
                     @if($notifs > 3)
                       <ul id="menu2" class="dropdown-menu list-unstyled msg_list" role="menu" style="height: 170px;overflow-y: auto;">
-                    @else
+                    @elseif($notifs <= 3)
                       <ul id="menu2" class="dropdown-menu list-unstyled msg_list" role="menu">
                     @endif
                       </ul>

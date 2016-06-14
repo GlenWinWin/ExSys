@@ -1,6 +1,9 @@
 #whenHover{
   cursor: pointer;
 }
+.picture_progress{
+  width: 20%;
+}
 #viewResult{
   width: 50%;
 }

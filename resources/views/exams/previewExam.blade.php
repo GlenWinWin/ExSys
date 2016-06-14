@@ -1,7 +1,7 @@
-@extends('layouts.layout_student')
+@extends('layouts.layout_professor')
 
 @section('title')
-	Take Exam
+	Preview
 @stop
 
 @section('page-content')
@@ -10,7 +10,7 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>Take Exam</h3>
+        <h3>Preview Exam</h3>
       </div>
     </div>
     <div class="clearfix"></div>
@@ -234,7 +234,7 @@
 						<p>Are you ready to take the exam? </p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="setClock({{$time_limit}})" style="margin-right:0px;" id="change_ifTaken">Yes, I am ready!</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="setClock({{$time_limit}})" style="margin-right:0px;">Yes, I am ready!</button>
 						<a class="btn btn-default" onclick="setHiddenSpecificId({{$groupId}})" style="margin-right:0px;">Give me some more time.</a>
 					</div>
 				</div>
@@ -271,7 +271,7 @@
 <script src="{{ URL::asset('assets/js/takeExam.js')}}"></script>
 <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
 <script src="{{ URL::asset('assets/js/timer.js')}}"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 document.onkeydown = function(){
   switch (event.keyCode){
         case 116 : //F5 button
@@ -284,11 +284,9 @@ document.onkeydown = function(){
                 event.keyCode = 0;
                 return false;
             }
-			 case 23:
-			 	alert('ff');
     }
 }
-</script>
+</script> -->
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
@@ -296,9 +294,6 @@ $(document).ready(function(){
 	$(".showQuestion").hide();
 		var rem = $('#reminders');
 		rem.modal();
-		$("#change_ifTaken").click(function(){
-			$("#change_ifTaken").load("{{asset('update_iftaken')}}");
-		});
 });
 </script>
 @stop

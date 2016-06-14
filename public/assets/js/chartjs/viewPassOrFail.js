@@ -2,6 +2,8 @@ Chart.defaults.global.legend = {
   enabled: false
 };
 var ctx = document.getElementById("canvasDoughnut");
+var passed = document.getElementById("passedStudents").value;
+var failed = document.getElementById("failedStudents").value;
 
 var data = {
   labels: [
@@ -9,7 +11,7 @@ var data = {
     'Passed'
   ],
   datasets: [{
-    data: [15,25],
+    data: [failed,passed],
     backgroundColor: [
       "#FF4949",
       "#30DC2F"

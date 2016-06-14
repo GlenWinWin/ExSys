@@ -13,8 +13,7 @@ use Session;
 use App\Members;
 use DB;
 use App\Exam;
-
-
+use App\User;
 
 class PagesController extends Controller
 {
@@ -46,7 +45,8 @@ class PagesController extends Controller
 		$specific_group_count = Groups::where('group_id', '=', $arr[1])->where('prof_id', '=', Auth::user()->id)->count();
 		$specific_group = Groups::where('group_id', '=', $arr[1])->where('prof_id', '=', Auth::user()->id)->first();
 		$exams = Exam::where('group_id', '=', $arr[1])->get();
-		$memberOfTheGroup = DB::table('users')
+		$teachers = User::where('typeOfUser','=',2)->where('id','<>',Auth::user()->id)->get();
+		$membersOfTheGroup = DB::table('users')
 												->join('group_members','users.id','=','group_members.user_id')
 												->select('users.name', 'users.profile_path', 'group_members.typeOfUser')
 												->where('group_members.group_id','=',$arr[1])
@@ -58,7 +58,8 @@ class PagesController extends Controller
 			->with('groupId',$specific_group->group_id)
 			->with('exams',$exams)
 			->with('notifs',count($notifications))
-			->with('members',$memberOfTheGroup);
+			->with('members',$membersOfTheGroup)
+			->with('teachers',$teachers);
 		}
 		else{
 			Session::flash('flash_message','You have not created that group!!');
@@ -74,10 +75,15 @@ class PagesController extends Controller
 		$groups = DB::select('select group_id,group_name FROM group_members NATURAL JOIN groups WHERE user_id = ?',[Auth::user()->id]);
 		$specific_group_count = Groups::where('group_id', '=', $arr[1])->count();
 		$specific_group = Groups::where('group_id', '=', $arr[1])->first();
-		$exams = DB::select('select exam_id, group_id, exam_name,user_id,ifTaken from exams natural join scores where group_id = ? and user_id = ?',[$arr[1],Auth::user()->id]);
+		$exams = DB::select('select exam_id, group_id, exam_name,user_id,ifTaken,date_added from exams natural join scores where group_id = ? and user_id = ?',[$arr[1],Auth::user()->id]);
+		$membersOfTheGroup = DB::table('users')
+												->join('group_members','users.id','=','group_members.user_id')
+												->select('users.name', 'users.profile_path', 'group_members.typeOfUser')
+												->where('group_members.group_id','=',$arr[1])
+												->orderBy('group_members.typeOfUser', 'desc')->get();
 		if($specific_group_count == 1  && count($groups) > 0){
 				return view('pages.group_student',['groups' => $groups,'groupName'=>$specific_group->group_name,
-				'groupId'=>$specific_group->group_id,'exams'=>$exams,'notifs'=>count($notifications)]);
+				'groupId'=>$specific_group->group_id,'exams'=>$exams,'notifs'=>count($notifications),'members'=>$membersOfTheGroup]);
 
 		}
 		else{
