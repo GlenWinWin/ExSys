@@ -48,7 +48,7 @@
 								{!! Form::open(array('action' => 'GroupController@viewGroup' , 'method' => 'post' , 'id' => 'specificGroup'))!!}
 								 <input type="hidden" name="groupId" id="specific_group_id">
 								{!! Form::close()!!}
-								
+
 
 <!-- Small modal -->
 
@@ -90,15 +90,17 @@
                       <h4 class="modal-title" id="myModalLabel2">Modify this Group</h4>
                     </div>
                     <div class="modal-body">
+											{!! Form::open(array('action' => 'GroupController@updateSpecificGroup' , 'method' => 'post' , 'id' => 'updateGroupForm'))!!}
                       <label for="Group Name">Group Name: </label>
-                      <input type="text" id="group_name_modal" class="form-control" name="group_nameModal" placeholder="">
-                      <label for="Group Details">Group Details(Optional): </label>
-                      <input type="text" id="group_details" class="form-control" name="group_details" placeholder="">
-
+                      <input type="text" id="group_name_update" class="form-control" name="group_name">
+                      <!-- <label for="Group Details">Group Details(Optional): </label>
+                      <input type="text" id="group_details" class="form-control" name="group_details"> -->
+											<input type="hidden" name="groupId" id="specificGroupId" >
+											{!! Form::close()!!}
                       </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-top:2%">Close</button>
-                      <button type="button" class="btn btn-primary">Submit</button>
+                      <button type="button" class="btn btn-primary" onclick="submitUpdateGroup()">Submit</button>
                     </div>
                   </div>
                 </div>
@@ -149,7 +151,7 @@
                       <th scope="row">{{$group_list->group_passCode}}</th>
                       <td>{{$group_list->group_name}}</td>
                       <td><a onclick="setHiddenSpecificId({{$group_list->group_id}})" id="viewMembers">View Members</a></td>
-                      <td><button type="button" class="btn btn-info" data-toggle="modal" data-target=".modify_group"><i class="fa fa-edit"></i> Modify</button></td>
+                      <td><button onclick="updateGroup('{{$group_list->group_name}}',{{$group_list->group_id}})" type="button" class="btn btn-info" data-toggle="modal" data-target=".modify_group"><i class="fa fa-edit"></i> Modify</button></td>
                       <td><button  onclick="setId({{$group_list->group_id}},'{{$group_list->group_name}}')" type="button" class="btn btn-warning" data-toggle="modal" data-target=".delete_group"><i class="fa fa-trash"></i> Delete</button></td>
                     </tr>
                     @endforeach

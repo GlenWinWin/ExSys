@@ -27,6 +27,10 @@ function editExam(examId){
   $("input[id=exam_id]").val(examId);
   $('#editExam').submit();
 }
+function preview(examId){
+  $("input[id=preview_id]").val(examId);
+  $('#previewExam').submit();
+}
 function viewExamResults(examId){
   $("input[id=viewexamResultsId]").val(examId);
   $('#viewExamResults').submit();

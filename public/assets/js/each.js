@@ -127,6 +127,3 @@ function displayModal(t_f,mul,iden){
     remarks.innerHTML = '<b><i class="fa fa-exclamation"><i></b>';
   }
 }
-function submitQuestion(){
-  $('#formQuestion').submit();
-}

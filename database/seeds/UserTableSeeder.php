@@ -18,31 +18,21 @@ class UserTableSeeder extends Seeder
         //   'typeOfUser' => '2',
         //   'profile_path' => 'assets/images/sir_chavez.jpg'
         // 	]);
-        DB::table('notifications')->insert([
-        	'id' => 4,
-          'fromUser' => 1,
-        	'has_read' => '0',
-          'notif_message' => 'This message is a trial'
-        	]);
-        DB::table('notifications')->insert([
-          'id' => 4,
-          'fromUser' => 2,
-          'has_read' => '0',
-          'notif_message' => 'Also this message'
-          ]);
-        DB::table('notifications')->insert([
-          'id' => 4,
-          'fromUser' => 3,
-          'has_read' => '0',
-          'notif_message' => 'Trial Message'
-          ]);
-        // DB::table('users')->insert([
-        //   	'email' => 'glenwinbernabe@gmail.com',
-        //     'name' => 'Glenwin G. Bernabe',
-        //   	'password' => Hash::make('1234'),
-        //     'typeOfUser' => '1',
-        //     'profile_path' => 'assets/images/user.png'
-        //   	]);
+        // $j=1;
+        // for($i = 6; $i <= 45; $i++){
+        //   DB::table('group_members')->insert([
+        //     	'group_id' => 2,
+        //       'user_id' => $i,
+        //       'typeOfUser' => '1'
+        //     	]);
+        //       DB::table('notifications')->insert([
+        //         	'id' => 1,
+        //           'fromUser' => $i,
+        //           'has_read' => 0,
+        //           'notif_message' => 'FirstName'.$j.' B. Lastname joined to your group Oracle.'
+        //         	]);
+        //           $j++;
+        // }
         //     DB::table('users')->insert([
         //     	'email' => 'admin@gmail.com',
         //       'name' => 'Admin',

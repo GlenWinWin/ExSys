@@ -75,9 +75,10 @@
 	                        </td>
 	                        <td>
 	                          <a onclick="viewExamResults({{$exam_list->exam_id}})" class="btn btn-primary"><i class="fa fa-folder"></i> View Results</a>
-	                          <a onclick="editExam({{$exam_list->exam_id}})" class="btn btn-info"><i class="fa fa-pencil"></i> Edit </a>
-	                          <a href="#" class="btn btn-danger "><i class="fa fa-trash-o"></i> Delete </a>
-														<a href="#" class="btn btn-warning "><i class="fa fa-share-alt"></i> Share </a>
+	                          <a onclick="editExam({{$exam_list->exam_id}})" class="btn btn-success"><i class="fa fa-pencil"></i> Edit </a>
+														<a class="btn btn-warning" data-toggle="modal" data-target=".share_exam"><i class="fa fa-share-alt"></i> Share </a>
+														<a onclick="preview({{$exam_list->exam_id}})" class="btn btn-info"><i class="fa fa-search"></i> Preview </a>
+														<a href="pdf" class="btn btn-primary"><i class="fa fa-print"></i> Print </a>
 	                        </td>
 	                      </tr>
 												@endforeach
@@ -90,6 +91,46 @@
 					</div>
 				</div>
       </div>
+			<div class="modal fade share_exam" tabindex="-1" role="dialog" aria-hidden="true">
+			                <div class="modal-dialog modal-sm">
+			                  <div class="modal-content">
+
+			                    <div class="modal-header">
+			                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+			                      </button>
+			                      <h4 class="modal-title" id="myModalLabel2">Share Exam to</h4>
+			                    </div>
+			                    <div class="modal-body">
+														<table class="table table-striped">
+															<thead>
+																<th>
+																	
+																</th>
+																<th>
+																	Professor
+																</th>
+															</thead>
+															<tbody>
+																@foreach($teachers as $guro)
+																	<tr>
+																		<td>
+																			<img src="{{$guro->profile_path}}" alt="Professor Pic" width="50px" heigth="50px">
+																		</td>
+																		<td>
+																			{{$guro->name}}
+																		</td>
+																	</tr>
+																@endforeach
+															</tbody>
+														</table>
+			                      </div>
+			                    <div class="modal-footer">
+			                      <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-top:2%">No</button>
+			                      <button type="button" class="btn btn-danger" onclick="submitDeleteGroupForm()">Yes</button>
+			                    </div>
+			                  </div>
+			                </div>
+			              </div>
 				{!! Form::open(array('action' => 'ExamsController@createExamInfo' , 'method' => 'post' , 'id' => 'specificGroupIdForm'))!!}
 				 <input type="hidden" name="groupId" id="specific_id">
 				{!! Form::close()!!}
@@ -99,8 +140,12 @@
 				{!! Form::open(array('action' => 'ExamsController@viewtheResult' , 'method' => 'get' , 'id' => 'viewExamResults'))!!}
 				 <input type="hidden" name="view_id" id="viewexamResultsId">
 				{!! Form::close()!!}
+				{!! Form::open(array('action' => 'ExamsController@preview' , 'method' => 'get' , 'id' => 'previewExam'))!!}
+				 <input type="hidden" name="exam_id" id="preview_id">
+				{!! Form::close()!!}
 
     </div>
+
     <div class="clearfix"></div>
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">

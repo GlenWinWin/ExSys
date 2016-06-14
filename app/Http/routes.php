@@ -10,23 +10,22 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['prefix' => 'product','prefix'=>'exam'] ,function(){
-	Route::get('all',[
-		'uses' => 'ProductController@index'
-	]);
-});
-
 Route::post('exam/question', 'ExamsController@createExam');
 Route::post('exam/take_exam', 'ExamsController@takeExam');
 Route::post('exam/submit_exam', 'ExamsController@submitExam');
 Route::post('group/create_group', 'GroupController@createGroup');
 Route::post('group/join_group', 'GroupController@joinGroup');
 Route::post('group/delete_group', 'GroupController@deleteGroup');
+Route::post('group/update_group', 'GroupController@updateSpecificGroup');
 Route::post('group/view_group', 'GroupController@viewGroup');
 Route::post('group/view_group_student', 'GroupController@viewGroupStudent');
 Route::post('group/view_progress', 'ProgressController@checkExamsProgress');
 Route::post('exam/add_exam_group', 'ExamsController@createExamInfo');
 
+Route::get('trial',[
+  'middleware' => 'auth',
+  'uses' => 'ExamsController@updateScore'
+]);
 Route::get('home',[
   'middleware' => 'auth',
   'uses' => 'PagesController@home'
@@ -59,6 +58,10 @@ Route::get('update_notification',[
 	'middleware' => 'auth',
   'uses' => 'NotificationsController@updateNotif'
 ]);
+Route::get('update_iftaken',[
+	'middleware' => 'auth',
+  'uses' => 'ExamsController@ifTaken'
+]);
 Route::get('take_exam',[
 	'middleware' => 'auth',
   'uses' => 'ExamsController@takeYourExam'
@@ -86,6 +89,10 @@ Route::get('add_exam_info',[
 Route::get('show_score',[
 	'middleware' => 'auth',
   'uses' => 'ExamsController@showScore'
+]);
+Route::get('preview_exam',[
+	'middleware' => 'auth',
+  'uses' => 'ExamsController@preview'
 ]);
 Route::get('login',function(){
 	if(Auth::check()){

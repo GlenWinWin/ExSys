@@ -1,7 +1,7 @@
 @extends('layouts.layout_professor')
 
 @section('title')
-	Edit Exam
+	View Progress
 @stop
 
 @section('page-content')
@@ -17,13 +17,46 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>Edit Exam</h3>
+        <h3>View Progress</h3>
       </div>
     </div>
     <div class="clearfix"></div>
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
+				<center>
+					<table class="table table-hover table-bordered" id="tableStudentProgress">
+						<thead>
+							<tr>
+								<th class="picture_progress">
 
+								</th>
+								<th>
+									Name
+								</th>
+								<th>
+									Average
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($members as $member)
+								<tr>
+									<td class="picture_progress"	>
+										<center>
+											<img src="{{$member->Pic}}" alt="Picture" width="100px" height="100px">
+										</center>
+									</td>
+									<td>
+										{{$member->Name}}
+									</td>
+									<td>
+										{{$member->Average}}
+									</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</center>
     	</div>
   	</div>
 	</div>
@@ -33,7 +66,6 @@
 
 @section('js_script')
 <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/each.js')}}"></script>
 <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
 <script src="{{ URL::asset('assets/js/tags/jquery.tagsinput.min.js')}}"></script>
 <script type="text/javascript">

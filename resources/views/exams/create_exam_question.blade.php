@@ -79,6 +79,7 @@ data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ?
 																											</label>
 
 																										</div>
+																										<a style="float:right" onclick="showonlyone('newboxes{{$t_f+1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-primary btn-round"><i class="fa fa-arrow-circle-right"></i> </a>
 						</div>
 						</div>
 						@else
@@ -101,6 +102,10 @@ data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ?
 																												</label>
 
 																											</div>
+																											@if($t_f < $numberOfItems)
+																											<a style="float:right" onclick="showonlyone('newboxes{{$t_f+1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-primary btn-round"><i class="fa fa-arrow-circle-right"></i> </a>
+																											@endif
+																											<a style="float:right" onclick="showonlyone('newboxes{{$t_f-1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-success btn-round"><i class="fa fa-arrow-circle-left"></i>  </a>
 							</div>
 							</div>
 							@endif
@@ -139,6 +144,8 @@ data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ?
 								<input type="text" id="d{{$multi}}" required="required" name="d{{$multi}}" class="form-control col-md-7 col-xs-12">
 							</div>
 								</div>
+								<a style="float:right" onclick="showonlyone('newboxes{{$multi+1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-primary btn-round"><i class="fa fa-arrow-circle-right"></i> </a>
+
 							</div>
 							</div>
 							@else
@@ -171,6 +178,10 @@ data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ?
 									<input type="text" id="d{{$multi}}" required="required" name="d{{$multi}}" class="form-control col-md-7 col-xs-12">
 								</div>
 									</div>
+									@if($multi < $numberOfItems)
+									<a style="float:right" onclick="showonlyone('newboxes{{$multi+1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-primary btn-round"><i class="fa fa-arrow-circle-right"></i> </a>
+									@endif
+									<a style="float:right" onclick="showonlyone('newboxes{{$multi-1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-success btn-round"><i class="fa fa-arrow-circle-left"></i>  </a>
 								</div>
 								</div>
 								@endif
@@ -191,7 +202,7 @@ data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ?
 																<input id="tags_{{$iden}}" onchange="doTag('{{$iden}}')" type="text" class="tags form-control" name="iden{{$iden}}" placeholder="Answer"/>
 															</div>
 														</div>
-														</div>
+														<a style="float:right" onclick="showonlyone('newboxes{{$iden+1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-primary btn-round"><i class="fa fa-arrow-circle-right"></i> </a>
 											</div>
 								@else
 								<div class="newboxes" id="newboxes{{$iden}}" style="display:none">
@@ -205,6 +216,10 @@ data-target="#confirm-submit-question" onclick="displayModal({{$true_false > 0 ?
 												<div class="col-md-3 col-sm-3 col-xs-12" style="margin-left: -10px;" >
 													<input id="tags_{{$iden}}" type="text" onchange="doTag('{{$iden}}')" class="tags form-control" name="iden{{$iden}}" placeholder="Answer"/>
 												</div>
+												@if($iden < $numberOfItems)
+												<a style="float:right" onclick="showonlyone('newboxes{{$iden+1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-primary btn-round"><i class="fa fa-arrow-circle-right"></i> </a>
+												@endif
+												<a style="float:right" onclick="showonlyone('newboxes{{$iden-1}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})" class="btn btn-success btn-round"><i class="fa fa-arrow-circle-left"></i>  </a>
 											</div>
 											</div>
 								</div>

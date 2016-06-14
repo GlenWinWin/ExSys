@@ -17,7 +17,6 @@
 
     <link href="{{ URL::asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/green.css')}}" rel="stylesheet">
-    <link href="{{ URL::asset('assets/css/quiz.css')}}" rel="stylesheet">
     <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
   </head>
 
@@ -64,7 +63,7 @@
 
                   <li><a><i class="fa fa-cog"></i> Manage Accounts </a>
                     <ul class="nav child_menu" style="display: none" >
-                         <li><a href="#"><i class="fa fa-user-md"></i>Professors</a></li>
+                         <li><a href="#"><i class="fa fa-users"></i>Professors</a></li>
                          <li><a href="#"><i class="fa fa-user"></i> Students</a></li>
                     </ul>
                   </li>

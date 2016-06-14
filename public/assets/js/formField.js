@@ -52,3 +52,10 @@ function setId(id,name){
   $("input[id=idGroup]").val(id);
   $("input[id=deletedGroupName]").val(name);
 }
+function updateGroup(groupName,groupId){
+  $("input[id=specificGroupId]").val(groupId);
+  $("input[id=group_name_update]").val(groupName);
+}
+function submitUpdateGroup(){
+  $('#updateGroupForm').submit();
+}

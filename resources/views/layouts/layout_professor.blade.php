@@ -11,9 +11,11 @@
     <link href="{{ URL::asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/fonts/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/animate.min.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/timer.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/icheck/flat/green.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/quiz.css')}}" rel="stylesheet">
+
     <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
     <script type="text/javascript">
     $(document).ready(function(){
@@ -70,7 +72,7 @@
                   </li>
 
                   <li>
-                    <a onclick="showGroups()"><i class="fa fa-area-chart"></i> Progress </a>
+                    <a><i class="fa fa-area-chart"></i> Progress </a>
                       <ul class="nav child_menu" style="display: none" >
                         {!! Form::open(array('action' => 'ProgressController@viewProgress' , 'method' => 'get' , 'id' => 'showProgress'))!!}
                          <input type="hidden" name="groupId" id="specific_group_id">
@@ -81,7 +83,7 @@
                       </ul>
                   </li>
 
-                   <li><a onclick="showGroups()"><i class="fa fa-group"></i> Groups </a>
+                   <li><a><i class="fa fa-group"></i> Groups </a>
                      <ul class="nav child_menu" style="display: none" >
                        {!! Form::open(array('action' => 'GroupController@viewGroup' , 'method' => 'post' , 'id' => 'specificGroup'))!!}
                         <input type="hidden" name="groupId" id="specific_group_id">
@@ -141,7 +143,7 @@
                   </a>
                   @if($notifs > 3)
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu" style="height: 170px;overflow-y: auto;">
-                  @else
+                  @elseif($notifs <= 3)
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                   @endif
                     </ul>

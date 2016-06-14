@@ -9,6 +9,7 @@ use DB;
 use Auth;
 use Session;
 use App\Members;
+use App\Groups;
 
 class ProgressController extends Controller
 {
@@ -17,16 +18,17 @@ class ProgressController extends Controller
   }
   public function viewProgress(Request $requests){
     $checkIfHasmember = Members::where('group_id','=',$requests->groupId)->where('typeOfUser','=','1')->get();
-    if(count($checkIfHasmember) > 0){
-      $temp = DB::select('select u.name as "Name", round(avg(s.percentage)) as "Average" from scores s inner join users u on s.user_id = u.id inner join exams e on s.exam_id = e.exam_id where e.group_id = ? group by u.id order by round(avg(s.percentage)) desc',[$requests->groupId]);
+    $notifications = Notifications::where('id','=',[Auth::user()->id])->orderBy('notif_id','desc')->get();
+    $groups = Groups::where('prof_id', '=', Auth::user()->id)->get();
 
-      if(count($temp) > 0){
-        foreach ($temp as $value) {
-          echo $value->Name . ' has an average of ' . $value->Average . '<br>';
-        }
+    if(count($checkIfHasmember) > 0){
+      $members = DB::select('select u.name as "Name" , u.profile_path as "Pic", round(avg(s.percentage)) as "Average" from scores s inner join users u on s.user_id = u.id inner join exams e on s.exam_id = e.exam_id where e.group_id = ? group by u.id order by round(avg(s.percentage)) desc',[$requests->groupId]);
+
+      if(count($members) > 0){
+        return view('progress.viewProgress',['groups'=>$groups, 'notifs'=>count($notifications), 'members' => $members]);
       }
       else{
-        echo 'No exams yet';
+        echo 'No exams yet professor;
       }
     }
     else{
