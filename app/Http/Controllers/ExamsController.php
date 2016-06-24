@@ -286,7 +286,7 @@ class ExamsController extends Controller
     }
     public function preview(Request $requests){
       $notifications = Notifications::where('id','=',[Auth::user()->id])->orderBy('notif_id','desc')->get();
-      $groups = Groups::where('prof_id','=',Auth::user()->id);
+      $groups = Groups::where('prof_id','=',Auth::user()->id)->get();
       $exams = Exam::where('exam_id','=',$requests->exam_id)->where('prof_id','=',Auth::user()->id)->get();
       $time_limit = 0;
       $groupId = 0;

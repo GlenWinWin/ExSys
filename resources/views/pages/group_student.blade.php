@@ -32,17 +32,12 @@
 							<div class="row" id="wider1" style="height: 440px;overflow-y: auto;">
 									<div class="clearfix"></div>
 									@foreach($members as $member)
-									<div class="col-md-4 col-sm-4 col-xs-12">
+									<div class="col-md-4 col-sm-4 col-xs-12" style="width: 24%">
 										<div class="well profile_view">
 											<div class="col-sm-12">
 												<h4 class="brief"><i>{{$member->typeOfUser == 2 ? 'Professor' : 'Student'}}</i></h4>
 												<div class="left col-xs-7">
 													<h2>{{$member->name}}</h2>
-													<p><strong>About: </strong> Web Designer / UI. </p>
-													<ul class="list-unstyled">
-														<li><i class="fa fa-phone"></i> Address: </li>
-														<li><i class="fa fa-phone"></i> Address: </li>
-													</ul>
 												</div>
 												<div class="right col-xs-5 text-center">
 													<img src="{{$member->profile_path}}" alt="" class="img-circle img-responsive">
