@@ -75,29 +75,54 @@ function showEach(thechosenone , t_f , mul , iden , specific_id) {
 }
 
 function makingSure(t_f , mul , iden){
-  var count = 0;
     for(var counter = 1; counter <= (t_f+mul+iden);counter++){
       var all = document.getElementById("myAnchor"+counter);
-      if($('input[id=tf_option'+counter+']:checked').size() > 0){
+      var count2 = 0;
+      if($('input[id=tf_option'+counter+']:checked').size() > 0 && document.getElementById(counter).value == ''){
         all.style.backgroundColor = '#4AFF49';
         all.style.color = '#5A738E';
-        count++;
+        $("input[id="+counter+"]").val("1");
+        count2++;
+        var count_hidden = +document.getElementById("count_hidden").value;
+        document.getElementById("doneQuestion").innerHTML = (count_hidden+count2) + "/" + (t_f+mul+iden);
+        $("input[id=count_hidden]").val(count_hidden+count2);
       }
-      else if($('input[id=option_mul'+counter+']:checked').size() > 0){
+      else if($('input[id=option_mul'+counter+']:checked').size() > 0 && document.getElementById(counter).value == ''){
         all.style.backgroundColor = '#4AFF49';
         all.style.color = '#5A738E';
-        count++;
+        $("input[id="+counter+"]").val("1");
+        count2++;
+        var count_hidden = +document.getElementById("count_hidden").value;
+        $("input[id=count_hidden]").val(count_hidden+count2);
+        document.getElementById("doneQuestion").innerHTML = (count_hidden+count2) + "/" + (t_f+mul+iden);
       }
-      else if(document.getElementById("ident"+counter).value != ''){
+      else if(document.getElementById("ident"+counter).value != '' && document.getElementById(counter).value == ''){
         all.style.backgroundColor = '#4AFF49';
         all.style.color = '#5A738E';
-        count++;
+        $("input[id="+counter+"]").val("1");
+        count2++;
+        var count_hidden = +document.getElementById("count_hidden").value;
+        document.getElementById("doneQuestion").innerHTML = (count_hidden+count2) + "/" + (t_f+mul+iden);
+        $("input[id=count_hidden]").val(count_hidden+count2);
       }
-      else{
+      else if($('input[id=tf_option'+counter+']:checked').size() == 0 && document.getElementById(counter).value != ''){
         all.style.backgroundColor = '#E6E9ED';
         all.style.color = '#5A738E';
+        $("input[id="+counter+"]").val("");
+        var count_hidden = +document.getElementById("count_hidden").value;
+        var value = ((count_hidden-1)+count2);
+        document.getElementById("doneQuestion").innerHTML = value + "/" + (t_f+mul+iden);
+        $("input[id=count_hidden]").val(value);
       }
-      document.getElementById("doneQuestion").innerHTML = count + "/" + (t_f+mul+iden);
+      else if($('input[id=option_mul'+counter+']:checked').size() == 0 && document.getElementById(counter).value != ''){
+        all.style.backgroundColor = '#E6E9ED';
+        all.style.color = '#5A738E';
+        $("input[id="+counter+"]").val("");
+        var count_hidden = +document.getElementById("count_hidden").value;
+        var value = ((count_hidden-1)+count2);
+        document.getElementById("doneQuestion").innerHTML = value + "/" + (t_f+mul+iden);
+        $("input[id=count_hidden]").val(value);
+      }
     }
 }
 function submitAnswers(){

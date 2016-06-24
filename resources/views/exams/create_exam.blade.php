@@ -91,22 +91,3 @@
 </div>
 </div>
 @stop
-
-@section('js_script')
-
-<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/custom.js')}}"></script>
-<script src="{{ URL::asset('assets/js/chartjs/typeOfQuestion.js')}}"></script>
-<script src="{{ URL::asset('assets/js/chartjs/chart.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/formField.js')}}"></script>
-<script>
-$(document).ready(function(){
-	var examName = document.getElementById("examName").value;
-	var numberOfItems = +document.getElementById("numberOfItems").value;
-
-	if((examName == null || examName == "") && (numberOfItems == null || numberOfItems == "")){
-		document.getElementById('btnSubmit').disabled = true;
-	}
-});
-</script>
-@stop

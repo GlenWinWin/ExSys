@@ -127,3 +127,11 @@ function displayModal(t_f,mul,iden){
     remarks.innerHTML = '<b><i class="fa fa-exclamation"><i></b>';
   }
 }
+function submitQuestion(){
+  $('#formQuestion').submit();
+}
+function removeQuestion(id){
+  $("a[id=myHeader"+id+"]").fadeOut();
+  $("div[id=newboxes"+id+"]").fadeOut();
+  $("div[id=newboxes"+(id+1)+"]").style.display = 'block';
+}

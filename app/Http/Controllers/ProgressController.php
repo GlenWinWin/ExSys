@@ -28,11 +28,13 @@ class ProgressController extends Controller
         return view('progress.viewProgress',['groups'=>$groups, 'notifs'=>count($notifications), 'members' => $members]);
       }
       else{
-        echo 'No exams yet professor;
+        echo 'No exams yet professor';
       }
     }
     else{
-      echo 'No students yet';
+      Session::flash('flash_message','No Students Yet!');
+      Session::flash('type_message','info');
+      return redirect()->back();
     }
   }
   public function view_progress(Request $requests){

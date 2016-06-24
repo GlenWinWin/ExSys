@@ -104,7 +104,7 @@
 														<table class="table table-striped">
 															<thead>
 																<th>
-																	
+
 																</th>
 																<th>
 																	Professor
@@ -114,6 +114,7 @@
 																@foreach($teachers as $guro)
 																	<tr>
 																		<td>
+																			<input type="radio" name="{{$guro->name}}">
 																			<img src="{{$guro->profile_path}}" alt="Professor Pic" width="50px" heigth="50px">
 																		</td>
 																		<td>
@@ -153,20 +154,4 @@
   	</div>
 	</div>
 </div>
-@stop
-
-@section('js_script')
-
-<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/custom.js')}}"></script>
-<script src="{{ URL::asset('assets/js/specific_group.js')}}"></script>
-<script src="{{ URL::asset('assets/js/icheck/icheck.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/pace/pace.min.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
-	});
-});
-</script>
 @stop

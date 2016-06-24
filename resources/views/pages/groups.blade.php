@@ -171,22 +171,3 @@
 </div>
 
 @stop
-
-
-@section('js_script')
-
-<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/custom.js')}}"></script>
-<script src="{{ URL::asset('assets/js/formField.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  var groupName = document.getElementById("group_name").value;
-
-  if(groupName == null || groupName == ""){
-    document.getElementById('addButtonGroup').disabled = true;
-  }
-	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
-	});
-});
-</script>
-@stop

@@ -63,7 +63,7 @@ class GroupController extends Controller
     $selectGroup =  Groups::where('group_passCode','=',trim($requests->group_Code))->first();
     if(count($selectGroup) == 0){
       Session::flash('flash_message','Mismatch Passcode!!');
-			Session::flash('type_message','success');
+			Session::flash('type_message','danger');
 
       return redirect('home');
     }

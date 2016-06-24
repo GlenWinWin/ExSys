@@ -55,7 +55,7 @@
 					<div class="numques">
 						<h2>Questions</h2><br>
 						@for($i = 1;$i <= $numberOfItems;$i++)
-									<a  id="myHeader{{$i}}" onclick="showonlyone('newboxes{{$i}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})">
+									<a  id="myHeader{{$i}}" ondblclick="removeQuestion({{$i}})" onclick="showonlyone('newboxes{{$i}}',{{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})">
 										{{$i}}
 									</a>
 						@endfor
@@ -408,18 +408,4 @@
 		</div>
 	</div>
 
-@stop
-
-@section('js_script')
-<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/icheck/icheck.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/each.js')}}"></script>
-<script src="{{ URL::asset('assets/js/custom.js')}}"></script>
-<script src="{{ URL::asset('assets/js/tags/jquery.tagsinput.min.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
-	});
-});
-</script>
 @stop

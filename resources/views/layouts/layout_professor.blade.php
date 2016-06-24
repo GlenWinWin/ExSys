@@ -158,7 +158,38 @@
       </div><!-- /main-container -->
     </div><!-- /container-body -->
     <script src="{{ URL::asset('assets/js/specific_group.js')}}"></script>
-            @yield('js_script')
+    <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/icheck/icheck.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/each.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/tags/jquery.tagsinput.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/takeExam.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/timer.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/chartjs/chart.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/chartjs/viewPassorFail.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/formField.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/pace/pace.min.js')}}"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	var examName = document.getElementById("examName").value;
+    	var numberOfItems = +document.getElementById("numberOfItems").value;
+
+    	if((examName == null || examName == "") && (numberOfItems == null || numberOfItems == "")){
+    		document.getElementById('btnSubmit').disabled = true;
+    	}
+      var groupName = document.getElementById("group_name").value;
+
+      if(groupName == null || groupName == ""){
+        document.getElementById('addButtonGroup').disabled = true;
+      }
+    	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
+    	});
+    	$(".showQuestion").hide();
+    		var rem = $('#reminders');
+    		rem.modal();
+    });
+    </script>
 
   </body>
 </html>

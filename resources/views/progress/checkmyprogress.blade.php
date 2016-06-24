@@ -44,18 +44,3 @@
 	</div>
 </div>
 @stop
-
-@section('js_script')
-
-<script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{ URL::asset('assets/js/custom.js')}}"></script>
-<script src="{{ URL::asset('assets/js/moris/mymorris.js')}}"></script>
-<script src="{{ URL::asset('assets/js/moris/myraphael.js')}}"></script>
-<script src="{{ URL::asset('assets/js/moris/scores.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
-	});
-});
-</script>
-@stop

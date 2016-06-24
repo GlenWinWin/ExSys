@@ -282,7 +282,30 @@
 
     </script>
     <script src="{{ URL::asset('assets/js/specific_group.js')}}"></script>
-            @yield('js_script')
+    <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/chartjs/chart.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/chartjs/showExamScoreChart.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/takeExam.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/icheck/icheck.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/timer.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/moris/mymorris.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/moris/myraphael.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/moris/scores.js')}}"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
+    	});
+    	$(".showQuestion").hide();
+    		var rem = $('#reminders');
+    		rem.modal();
+    		$("#change_ifTaken").click(function(){
+    			$("#change_ifTaken").load("{{asset('update_iftaken')}}");
+    		});
+    	window.onbeforeunload = function() { return "Your work will be lost."; };
+    });
+    </script>
+
 
   </body>
 </html>

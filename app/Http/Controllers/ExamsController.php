@@ -155,11 +155,14 @@ class ExamsController extends Controller
       $true_false = Question::where('exam_id','=',$examId)->where('type_of_question','=','true_or_false')->get();
       $multiple_choice = Question::where('exam_id','=',$examId)->where('type_of_question','=','multiple_choice')->get();
       $identification = Question::where('exam_id','=',$examId)->where('type_of_question','=','identification')->get();
-      $scores = Scores::where('user_id','=',Auth::user()->id)->where('exam_id','=',$examId)->where('score','=',0)->get();
+      $scores = Scores::where('user_id','=',Auth::user()->id)->where('exam_id','=',$examId)->where('score','=',0)->where('ifTaken','=',0)->get();
 
       if(count($ifAGroupMember) > 0 && count($scores) > 0){
         return view('exams/takeExam',['groups'=>$groups,'questions'=>$questions,'time_limit'=>$time_limit,'examId'=>$examId,
         'groupId'=>$groupId,'true_false'=>count($true_false),'multiple_choice'=>count($multiple_choice),'identification'=>count($identification),'notifs'=>count($notifications)]);
+      }
+      else if(count($scores) == 0){
+        return redirect()->action('PagesController@group_specific', [$groupId]);
       }
       else{
         Session::flash('flash_message','Oopps! that is not your exam.');
@@ -278,7 +281,7 @@ class ExamsController extends Controller
         Session::flash('flash_message','That is not your exam!');
         Session::flash('type_message','danger');
 
-        return redirect('home');
+        return redirect()->back();
       }
     }
     public function preview(Request $requests){
@@ -318,12 +321,12 @@ class ExamsController extends Controller
     public function ifTaken(Request $requests){
       $update_ifTaken = Scores::where('user_id','=',Auth::user()->id)->update(['ifTaken'=>'1']);
     }
-    public function updateScore(){
-      for($i = 1; $i<=45;$i++){
-          $randomScore = rand(1,50);
-          $ifRandScoreIsLessthan10 = $randomScore <= 10 ? $randomScore+10 : $randomScore;
-          $scores = Scores::where('user_id','=',$i)->where('exam_id','=',1)->update(['score'=>$ifRandScoreIsLessthan10,'ifTaken'=>1,'percentage'=>round(((($ifRandScoreIsLessthan10/50)*50)+50))]);
-      }
-      echo 'Nice one';
-    }
+    // public function updateScore(){
+    //   for($i = 1; $i<=45;$i++){
+    //       $randomScore = rand(1,5);
+    //       $ifRandScoreIsLessthan10 = $randomScore;
+    //       $scores = Scores::where('user_id','=',$i)->where('exam_id','=',2)->update(['score'=>$ifRandScoreIsLessthan10,'ifTaken'=>1,'percentage'=>round(((($ifRandScoreIsLessthan10/5)*50)+50))]);
+    //   }
+    //   echo 'Nice one';
+    // }
 }
