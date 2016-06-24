@@ -46,9 +46,8 @@ class ProgressController extends Controller
 			return view('progress.checkmyprogress')->with('groups',$group_student)->with('scores',$scores)->with('notifs',count($notifications));
 		}
 		else{
-			Session::flash('flash_message','That is not your exam!!');
-			Session::flash('type_message','info');
-			return redirect('home');
+      $group_student = DB::select('select group_id,group_name FROM group_members NATURAL JOIN groups WHERE user_id = ?',[Auth::user()->id]);
+			return view('progress.checkmyprogress')->with('groups',$group_student)->with('scores',$scores)->with('notifs',count($notifications));
 		}
 
 	}

@@ -59,3 +59,18 @@ function updateGroup(groupName,groupId){
 function submitUpdateGroup(){
   $('#updateGroupForm').submit();
 }
+function disable_ableButton(){
+  var groupCode = document.getElementById("valueCode").value;
+
+  if(groupCode != null || groupCode != ""){
+    if(groupCode.length < 7){
+        document.getElementById('submitbutton').disabled = true;
+    }
+    else{
+      document.getElementById('submitbutton').disabled = false;
+    }
+  }
+}
+function submitJoinForm(){
+  $('#formJoinGroup').submit();
+}

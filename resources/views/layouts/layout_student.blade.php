@@ -21,10 +21,8 @@
     <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-          setInterval(function () {
             $('#menu2').load("{{asset('notification')}}");
             $('#notificationCount').load("{{asset('count_notif')}}")
-          }, 1000);
           $("#whenClick").click(function(){
             $('#updateNotif').load("{{asset('update_notification')}}");
           });
@@ -153,79 +151,6 @@
                     </li>
                   </ul>
                 </li>
-                <!-- <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-red">9</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu" style="height: 220px;overflow-y: auto;">
-                    <li>
-                      <a href="#">
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg') }}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg')}}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg')}}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="{{ URL::asset('assets/images/img.jpg')}}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a href="#">
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li> -->
-
               </ul>
             </nav>
           </div>
@@ -256,56 +181,50 @@
         @yield('page-content')
       </div><!-- /main-container -->
     </div><!-- /container-body -->
+    <script src="{{ URL::asset('assets/js/specific_group.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/icheck/icheck.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/takeExam.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/timer.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/chartjs/chart.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/chartjs/showExamScoreChart.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/formField.js')}}"></script>
     <script type="text/javascript">
     $(document).ready(function(){
+    	$(".showQuestion").hide();
+    		var rem = $('#reminders');
+    		rem.modal();
+        $("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
+      	});
+    		$("#change_ifTaken").click(function(){
+    			$("#change_ifTaken").load("{{asset('update_iftaken')}}");
+    		});
       var groupCode = document.getElementById("valueCode").value;
 
       if(groupCode == null || groupCode == ""){
         document.getElementById('submitbutton').disabled = true;
       }
     });
-    function disable_ableButton(){
-      var groupCode = document.getElementById("valueCode").value;
-
-      if(groupCode != null || groupCode != ""){
-        if(groupCode.length < 7){
-            document.getElementById('submitbutton').disabled = true;
-        }
-        else{
-          document.getElementById('submitbutton').disabled = false;
-        }
-      }
-    }
-    function submitJoinForm(){
-      $('#formJoinGroup').submit();
-    }
-
     </script>
-    <script src="{{ URL::asset('assets/js/specific_group.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/custom.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/chartjs/chart.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/chartjs/showExamScoreChart.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/takeExam.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/icheck/icheck.min.js')}}"></script>
-    <script src="{{ URL::asset('assets/js/timer.js')}}"></script>
     <script src="{{ URL::asset('assets/js/moris/mymorris.js')}}"></script>
     <script src="{{ URL::asset('assets/js/moris/myraphael.js')}}"></script>
     <script src="{{ URL::asset('assets/js/moris/scores.js')}}"></script>
     <script type="text/javascript">
-    $(document).ready(function(){
-    	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
-    	});
-    	$(".showQuestion").hide();
-    		var rem = $('#reminders');
-    		rem.modal();
-    		$("#change_ifTaken").click(function(){
-    			$("#change_ifTaken").load("{{asset('update_iftaken')}}");
-    		});
-    	window.onbeforeunload = function() { return "Your work will be lost."; };
-    });
+    document.onkeydown = function(){
+      switch (event.keyCode){
+            case 116 : //F5 button
+                event.returnValue = false;
+                event.keyCode = 0;
+                return false;
+            case 82 : //R button
+                if (event.ctrlKey){
+                    event.returnValue = false;
+                    event.keyCode = 0;
+                    return false;
+                }
+        }
+    }
     </script>
-
-
   </body>
 </html>

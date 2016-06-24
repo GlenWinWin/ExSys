@@ -88,7 +88,7 @@
 									</table>
 								</center>
 								@else
-									<h1> <i class="fa fa-info"> No Exams Yet</i> </h1>
+									<h1> No Exams Yet <i class="fa fa-info"/></i> </h1>
 									@endif
 								</h3>
 							</div>

@@ -15,14 +15,11 @@
     <link href="{{ URL::asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/icheck/flat/green.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/quiz.css')}}" rel="stylesheet">
-
     <script src="{{ URL::asset('assets/js/jquery.min.js')}}"></script>
     <script type="text/javascript">
     $(document).ready(function(){
-          setInterval(function () {
             $('#menu1').load("{{asset('notification')}}");
             $('#notification_count').load("{{asset('count_notif')}}")
-          }, 1000);
           $("#whenHover").click(function(){
             $('#updateNotif').load("{{asset('update_notification')}}");
           });
@@ -101,7 +98,6 @@
               </div>
 
             </div>
-            <!-- /sidebar menu -->
 
           </div>
         </div>
@@ -172,7 +168,12 @@
     <script src="{{ URL::asset('assets/js/pace/pace.min.js')}}"></script>
     <script type="text/javascript">
     $(document).ready(function(){
-    	var examName = document.getElementById("examName").value;
+      $("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
+    	});
+      $(".showQuestion").hide();
+    		var rem = $('#reminders');
+    		rem.modal();
+      var examName = document.getElementById("examName").value;
     	var numberOfItems = +document.getElementById("numberOfItems").value;
 
     	if((examName == null || examName == "") && (numberOfItems == null || numberOfItems == "")){
@@ -183,11 +184,6 @@
       if(groupName == null || groupName == ""){
         document.getElementById('addButtonGroup').disabled = true;
       }
-    	$("#viewAlert").fadeTo(3000, 500).fadeOut(500, function(){
-    	});
-    	$(".showQuestion").hide();
-    		var rem = $('#reminders');
-    		rem.modal();
     });
     </script>
 

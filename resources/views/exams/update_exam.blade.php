@@ -62,7 +62,7 @@
 					</div>
 					<?php $q=1;?>
 					@foreach($questions as $quest)
-					<div class="showQuestion">
+					<div>
 						@if($q == 1 && $quest->type_of_question == 'true_or_false')
 							<div class="newboxes" id="newboxes{{$q}}">
 							<div class="form-group">

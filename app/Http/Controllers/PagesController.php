@@ -87,7 +87,7 @@ class PagesController extends Controller
 
 		}
 		else{
-			Session::flash('flash_message','You are not belong to the group!!');
+			Session::flash('flash_message','You are not belong to that group!!');
 			Session::flash('type_message','danger');
 
 			return redirect()->back();

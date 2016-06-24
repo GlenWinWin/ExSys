@@ -53,11 +53,11 @@
 										</tr>
 									 @else
 									 	@if($result->Percentage >= 75)
-											<tr style="background-color:#67DE48;color:black">
+											<tr>
 												<td>
 													<b>{{$result->Name}}</b>
 												</td>
-													<td>
+													<td style="background-color:#67DE48;color:black">
 														<b>{{$result->Score}}</b>
 													</td>
 												<td>
@@ -66,11 +66,11 @@
 											</tr>
 											<?php $passed++;?>
 											@else
-												<tr style="background-color:#D02727;color:black">
+												<tr>
 													<td>
   													<b>{{$result->Name}}</b>
   												</td>
-  													<td>
+  													<td style="background-color:#D02727;color:black">
   														<b>{{$result->Score}}</b>
   													</td>
 												 <td>
