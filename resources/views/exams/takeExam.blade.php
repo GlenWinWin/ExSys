@@ -231,11 +231,30 @@
 					</div>
 					<div class="modal-body">
 						<h4>Note:</h4>
-						<p>Are you ready to take the exam? </p>
+						<p>Are you ready to take the exam? By pressing the "Yes, I am ready!" button you agree that there is no turning back.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="setClock({{$time_limit}})" style="margin-right:0px;" id="change_ifTaken">Yes, I am ready!</button>
 						<a class="btn btn-default" onclick="setHiddenSpecificId({{$groupId}})" style="margin-right:0px;">Give me some more time.</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade bs-example-modal-sm" id="whenF5isClicked" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						</button>
+						<h4 class="modal-title" id="myModalLabel2">Reminders</h4>
+					</div>
+					<div class="modal-body">
+						<h4>Note:</h4>
+						<p>By Pressing the ok button, you want to leave the page while taking the exam.</p>
+					</div>
+					<div class="modal-footer">
+						<a class="btn btn-default" onclick="setHiddenSpecificId({{$groupId}})" style="margin-right:0px;">Ok</a>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right:0px;">Cancel</button>
 					</div>
 				</div>
 			</div>

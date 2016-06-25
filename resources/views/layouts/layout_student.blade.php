@@ -214,9 +214,17 @@
     document.onkeydown = function(){
       switch (event.keyCode){
             case 116 : //F5 button
-                event.returnValue = false;
-                event.keyCode = 0;
-                return false;
+                if(window.location.href == 'http://localhost:8000/take_exam?1'){
+                    var whenF5isClicked = $('#whenF5isClicked');
+                		whenF5isClicked.modal();
+                    event.returnValue = false;
+                    event.keyCode = 0;
+                    return false;
+                }
+                else{
+                  return true;
+                }
+
             case 82 : //R button
                 if (event.ctrlKey){
                     event.returnValue = false;
