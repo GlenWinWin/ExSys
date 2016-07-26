@@ -162,6 +162,7 @@
     <script src="{{ URL::asset('assets/js/takeExam.js')}}"></script>
     <script src="{{ URL::asset('assets/js/timer.js')}}"></script>
     <script src="{{ URL::asset('assets/js/chartjs/chart.min.js')}}"></script>
+    <script src="{{ URL::asset('assets/js/chartjs/typeOfQuestion.js')}}"></script>
     <script src="{{ URL::asset('assets/js/chartjs/viewPassorFail.js')}}"></script>
     <script src="{{ URL::asset('assets/js/formField.js')}}"></script>
     <script src="{{ URL::asset('assets/js/progressbar/bootstrap-progressbar.min.js')}}"></script>
