@@ -133,7 +133,7 @@ class ExamsController extends Controller
     public function takeYourExam(Request $requests){
       $notifications = Notifications::where('id','=',[Auth::user()->id])->orderBy('notif_id','desc')->get();
       $arr = explode('?',$requests->fullUrl());
-      $groups = DB::select('select group_id,group_name FROM group_members NATURAL JOIN groups WHERE user_id = ?',[Auth::user()->id]);
+      $groups = DB::select('select groups.group_id,groups.group_name FROM groups JOIN group_members WHERE group_members.user_id = ?',[Auth::user()->id]);
       $examId = $arr[1];
       $exams = Exam::where('exam_id','=',$arr[1])->get();
       $time_limit = 0;
@@ -146,10 +146,10 @@ class ExamsController extends Controller
       }
       $questions = '';
       if($random == '0'){
-        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ?',[$examId]);
+        $questions = DB::select('select exams.exam_name,exams.exam_time_limit,questions.question,questions.answers,exams.group_id,questions.type_of_question,questions.a,questions.b,questions.c,questions.d FROM exams JOIN questions ON exams.exam_id = questions.exam_id WHERE questions.exam_id = ?',[$examId]);
       }
       else{
-        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ? ORDER BY RAND()',[$examId]);
+        $questions = DB::select('select exams.exam_name,exams.exam_time_limit,questions.question,questions.answers,exams.group_id,questions.type_of_question,questions.a,questions.b,questions.c,questions.d FROM exams JOIN questions ON exams.exam_id = questions.exam_id WHERE questions.exam_id = ? ORDER BY RAND()',[$examId]);
       }
       $ifAGroupMember = DB::select('select user_id from exams natural join group_members where exam_id = ? and user_id = ?',[$examId,Auth::user()->id]);
       $true_false = Question::where('exam_id','=',$examId)->where('type_of_question','=','true_or_false')->get();
@@ -213,7 +213,7 @@ class ExamsController extends Controller
           }
         }
       }
-      $scores = Scores::where('user_id','=',Auth::user()->id)->where('exam_id','=',$examId)->update(  ['score'=>$score,'ifTaken'=>1,'percentage'=>round(((($score/$total)*50)+50))]);
+      $scores = Scores::where('user_id','=',Auth::user()->id)->where('exam_id','=',$examId)->update(['score'=>$score,'ifTaken'=>1,'percentage'=>round(((($score/$total)*50)+50))]);
 
       return redirect()->action('ProgressController@view_progress', [$groupId]);
 
@@ -298,10 +298,10 @@ class ExamsController extends Controller
       }
       $questions = '';
       if($random == '0'){
-        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ?',[$requests->exam_id]);
+        $questions = DB::select('select exams.exam_name,exams.exam_time_limit,questions.question,questions.answers,exams.group_id,questions.type_of_question,questions.a,questions.b,questions.c,questions.d FROM exams JOIN questions ON exams.exam_id = questions.exam_id WHERE questions.exam_id = ?',[$requests->exam_id]);
       }
       else{
-        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ? ORDER BY RAND()',[$requests->exam_id]);
+        $questions = DB::select('select exams.exam_name,exams.exam_time_limit,questions.question,questions.answers,exams.group_id,questions.type_of_question,questions.a,questions.b,questions.c,questions.d FROM exams JOIN questions ON exams.exam_id = questions.exam_id WHERE questions.exam_id = ? ORDER BY RAND()',[$requests->exam_id]);
       }
       $true_false = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','true_or_false')->get();
       $multiple_choice = Question::where('exam_id','=',$requests->exam_id)->where('type_of_question','=','multiple_choice')->get();

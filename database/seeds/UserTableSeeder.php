@@ -11,13 +11,13 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('users')->insert([
-        // 	'email' => 'enricochavez@gmail.com',
-        //   'name' => 'Enrico Chavez',
-        // 	'password' => Hash::make('chavez'),
-        //   'typeOfUser' => '2',
-        //   'profile_path' => 'assets/images/sir_chavez.jpg'
-        // 	]);
+        DB::table('users')->insert([
+        	'email' => 'kokey@gmail.com',
+          'name' => 'PiCo Lo',
+        	'password' => Hash::make('picolo'),
+          'typeOfUser' => '1',
+          'profile_path' => 'assets/images/user.png'
+        	]);
         // $j=1;
         // for($i = 6; $i <= 45; $i++){
         //   DB::table('group_members')->insert([

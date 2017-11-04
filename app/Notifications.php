@@ -13,7 +13,8 @@ class Notifications extends Model
     'user_id',
     'has_read',
     'fromUser',
-    'notif_message'
+    'notif_message',
+    'type_of_notif'
   ];
 
   public $timestamps = false;

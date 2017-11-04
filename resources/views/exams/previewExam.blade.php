@@ -41,8 +41,8 @@
 				<input type="hidden" name="totalQuestions" value="{{$true_false+$multiple_choice+$identification}}">
 				<input type="hidden" name="exam_id" value="{{$examId}}">
 				<input type="hidden" name="group_id" value="{{$groupId}}">
-				<button type="button" class="btn btn-primary" style="float:right" data-toggle="modal"
-				data-target="#confirm-exam" onclick="makingSure({{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})">Done</button>
+				<!-- <button type="button" class="btn btn-primary" style="float:right" data-toggle="modal"
+				data-target="#confirm-exam" onclick="makingSure({{$true_false > 0 ? $true_false : 0}},{{$multiple_choice > 0 ? $multiple_choice : 0}},{{$identification > 0 ? $identification : 0}})">Done</button> -->
 				<h1 style="float:right;margin-right:5%" id="doneQuestion">0/{{$true_false+$multiple_choice+$identification}}</h1>
 					                      <div class="clearfix"></div>
 					</div>
