@@ -97,7 +97,7 @@ class ExamsController extends Controller
           $question->type_of_question = 'identification';
           $question->save();
         }
-        $questions = DB::select('select exam_name,exam_time_limit,question,answers,group_id,type_of_question,a,b,c,d FROM exams NATURAL JOIN questions WHERE exam_id = ? ORDER BY RAND()',[$exam_query->exam_id]);
+        $questions = DB::select('select exams.exam_name,exams.exam_time_limit,questions.question,questions.answers,exams.group_id,questions.type_of_question,questions.a,questions.b,questions.c,questions.d FROM exams JOIN questions ON exams.exam_id = questions.exam_id WHERE questions.exam_id = ? ORDER BY RAND()',[$exam_query->exam_id]);
         $addMember = Members::where('group_id','=',$requests->groupId)->where('typeOfUser','=',1)->get();
         $specific_group = Groups::where('group_id', '=', $requests->groupId)->get();
         $groupName = '';
